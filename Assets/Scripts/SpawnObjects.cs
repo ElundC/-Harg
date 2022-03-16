@@ -5,8 +5,6 @@ using UnityEngine;
 public class SpawnObjects : MonoBehaviour
 {
     public List<GameObject> tiles;
-    float waitTime = 0;
-
     void Start()
     {
         /*for(int x = 0; x < tiles.Count ; x++)             enleve tout les tiles avec le bon tag; 
@@ -54,33 +52,22 @@ public class SpawnObjects : MonoBehaviour
         
     }
 
-        void GenerateLevel()
+    void GenerateLevel()
     {
-        if( transform.position.z == 0)
-        {
-            waitTime = 0;
-        }
-        else if(transform.position.z == 60)
-        {
-            waitTime = 0.7f;
-        }
-        else if(transform.position.z == 120)
-        {
-            waitTime = 1.4f;
-        }
-        else if (transform.position.z == 180)
-        {
-            waitTime = 2.1f;
-        }
-        else { waitTime = 2.8f;}
-
-        StartCoroutine(WaitThenGenerate(waitTime));
-    }
-    private IEnumerator WaitThenGenerate ( float waitTime)
-    {
-        yield return new WaitForSeconds (waitTime);
         int rand = Random.Range(0, tiles.Count);
         Instantiate(tiles[rand], transform.position, Quaternion.identity);
+
+        if(transform.childCount > 0) {
+
+            StartCoroutine(WaitThenGenerate(0.2f)); 
+        }
+
     }
 
-}   
+    IEnumerator WaitThenGenerate ( float waitTime)
+    {
+        yield return new WaitForSeconds (waitTime);
+        GameObject child = gameObject.transform.GetChild(0).gameObject;
+        child.SetActive(true);
+    }
+} 
