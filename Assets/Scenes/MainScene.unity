@@ -385,6 +385,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2703214545894627374, guid: 4a7175dcc312e9b4f97dfb52085e7593, type: 3}
+      propertyPath: RuleNumber
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d123ffb8c2390e4485a8799967cf155, type: 2}
+    - target: {fileID: 2703214545894627374, guid: 4a7175dcc312e9b4f97dfb52085e7593, type: 3}
       propertyPath: levels.Array.size
       value: 1
       objectReference: {fileID: 0}

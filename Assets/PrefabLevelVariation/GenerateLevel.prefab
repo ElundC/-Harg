@@ -51,3 +51,4 @@ MonoBehaviour:
   - {fileID: 4796894369404955687, guid: 9ebb2eaa314b88f4680090bfadd1c6ac, type: 3}
   - {fileID: 3115979478751053334, guid: 70dc2a054a4ed7548837385755ce751e, type: 3}
   - {fileID: 720080991396215493, guid: 48b5b181f043527478f88e0b59fb318e, type: 3}
+  rand: 2
