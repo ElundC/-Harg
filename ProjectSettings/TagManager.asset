@@ -9,6 +9,7 @@ TagManager:
   - Grey
   - Red
   - Snow
+  - Level
   layers:
   - Default
   - TransparentFX

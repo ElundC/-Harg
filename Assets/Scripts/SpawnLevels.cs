@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnLevels : MonoBehaviour
 {
     public List<GameObject> levels;
+    public int rand = 1; // Random.Range(0,4);
     void Start()
     {
 
