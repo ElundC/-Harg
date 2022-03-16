@@ -110,26 +110,28 @@ public class SpawnObjects : MonoBehaviour
 
     void ChooseRule(int num , string parent, string parent5, int rand)
     {
-       // string chosenrule ="No Rule";
+        string chosenrule ="No Rule";
 
         if(num > 0 && num < 5)
         {
             NoSameNeigbhours(parent, parent5, rand);
 
-            //chosenrule = "Tiles can't be of the type of their neighbours";
+            chosenrule = "Tiles can't be of the type of their neighbours";
         }
         if(num >= 5 && num < 9)
         {
             SameNeigbhourschanceincrease(parent, parent5, rand);
 
-           // chosenrule = "More chance for tile to be of the same type of their neighbours";
+            chosenrule = "More chance for tile to be of the same type of their neighbours";
         }
         if(num >= 9 && num < 13)
         {
             AllBlock(rand);
-           // chosenrule = "Tiles who can have walls will alays spawn a wall";
+            chosenrule = "Tiles who can have walls will alays spawn a wall";
         }
         else {}  
+
+        Debug.Log (chosenrule);
     }
 
 

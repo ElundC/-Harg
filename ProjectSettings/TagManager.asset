@@ -10,6 +10,8 @@ TagManager:
   - Red
   - Snow
   - Level
+  - Wall
+  - Bridge
   layers:
   - Default
   - TransparentFX

@@ -1550,7 +1550,7 @@ GameObject:
   - component: {fileID: 4369841001061608315}
   m_Layer: 0
   m_Name: BlockPathRockDesert
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
