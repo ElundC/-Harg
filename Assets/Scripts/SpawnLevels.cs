@@ -6,6 +6,8 @@ public class SpawnLevels : MonoBehaviour
 {
     public List<GameObject> levels;
 
+    public GameObject bridgespawner;
+
     public RandomRule RuleNumber;
     
     void Start()
@@ -14,5 +16,6 @@ public class SpawnLevels : MonoBehaviour
 
         int randlevel = Random.Range(0, levels.Count);
         Instantiate(levels[randlevel], transform.position, Quaternion.identity);
+        Instantiate(bridgespawner, transform.position, Quaternion.identity);
     }
 }
