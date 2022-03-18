@@ -17,5 +17,7 @@ public class SpawnLevels : MonoBehaviour
         int randlevel = Random.Range(0, levels.Count);
         Instantiate(levels[randlevel], transform.position, Quaternion.identity);
         Instantiate(bridgespawner, transform.position, Quaternion.identity);
+        
     }
+
 }

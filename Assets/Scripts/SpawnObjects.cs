@@ -5,9 +5,9 @@ using UnityEngine;
 public class SpawnObjects : MonoBehaviour
 {
     public List<GameObject> tiles;
-
-    public GameObject SpawnerLevel;
-
+    public GameObject child;
+    public GameObject parent1;
+    public GameObject parent5;
     public RandomRule RuleNumber;
     void Start()
     {
@@ -65,23 +65,22 @@ public class SpawnObjects : MonoBehaviour
 
         int rulenum = RuleNumber.value;
 
-        if(transform.parent.CompareTag("Level")) {
+        if(parent1 == null) {
            ChooseRule(rulenum, null,null, rand);
 
         }
-        else if (transform.parent !=null && !transform.parent.CompareTag("Level")) {
+        else {
         
-            GameObject parentgo = gameObject.transform.parent.gameObject;
-            string parenttiles = parentgo.tag;
-            
-            if( transform.parent.transform.parent == null || transform.parent.transform.parent.transform.parent == null || transform.parent.transform.parent.transform.parent.transform.parent == null || transform.parent.transform.parent.transform.parent.transform.parent.transform.parent == null)  {
+            string parenttiles = parent1.tag;
+
+            if( parent5 == null)  {
             
               ChooseRule(rulenum, parenttiles, null, rand);       
+             
             }
             else {
-                GameObject parent5 = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.gameObject;
                 string parent5tiles = parent5.tag;
-
+               
                 ChooseRule(rulenum, parenttiles, parent5tiles, rand);
             }
         }
@@ -94,7 +93,7 @@ public class SpawnObjects : MonoBehaviour
 
         gameObject.tag = currenttiles;
     
-        if(transform.childCount > 0) {
+        if(child != null) {
 
             StartCoroutine(WaitThenGenerate(0.2f)); 
         }
@@ -103,24 +102,23 @@ public class SpawnObjects : MonoBehaviour
     IEnumerator WaitThenGenerate ( float waitTime)
     {
         yield return new WaitForSeconds (waitTime);
-        GameObject child = gameObject.transform.GetChild(0).gameObject;
         child.SetActive(true);
     }
 
 
-    void ChooseRule(int num , string parent, string parent5, int rand)
+    void ChooseRule(int num , string parentTag, string parent5Tag, int rand)
     {
         string chosenrule ="No Rule";
 
         if(num > 0 && num < 5)
         {
-            NoSameNeigbhours(parent, parent5, rand);
+            NoSameNeigbhours(parentTag, parent5Tag, rand);
 
             chosenrule = "Tiles can't be of the type of their neighbours";
         }
         if(num >= 5 && num < 9)
         {
-            SameNeigbhourschanceincrease(parent, parent5, rand);
+            SameNeigbhourschanceincrease(parentTag, parent5Tag, rand);
 
             chosenrule = "More chance for tile to be of the same type of their neighbours";
         }
@@ -135,22 +133,22 @@ public class SpawnObjects : MonoBehaviour
     }
 
 
-    void NoSameNeigbhours(string parent, string parent5, int rand) {
+    void NoSameNeigbhours(string parentTag, string parent5Tag, int rand) {
 
-        if( parent != null && parent5 != null){
+        if( parentTag != null && parent5Tag != null){
             for(int x = 0; x < tiles.Count; x++)
             {
-                if (tiles[x].CompareTag(parent) || tiles[x].CompareTag(parent5))
+                if (tiles[x].CompareTag(parentTag) || tiles[x].CompareTag(parent5Tag))
                 {
                     tiles.Remove(tiles[x]);
                     x--;
                 }
             }
         }
-        else if( parent != null && parent5 == null){
+        else if( parentTag != null && parent5Tag == null){
             for(int x = 0; x < tiles.Count; x++)
             {
-                if (tiles[x].CompareTag(parent))
+                if (tiles[x].CompareTag(parentTag))
                 {
                     tiles.Remove(tiles[x]);
                     x--;
@@ -160,26 +158,26 @@ public class SpawnObjects : MonoBehaviour
         else {}
     }
 
-    void SameNeigbhourschanceincrease(string parent, string parent5, int rand)
+    void SameNeigbhourschanceincrease(string parentTag, string parent5Tag, int rand)
     {
         int currenttilescount = tiles.Count;
 
         for(int y = 0; y < 3; y++) {
 
-            if( parent != null && parent5 != null){
+            if( parentTag != null && parent5Tag != null){
                 for(int x = 0; x < currenttilescount; x++)
                 {
-                    if (tiles[x].CompareTag(parent) || tiles[x].CompareTag(parent5))
+                    if (tiles[x].CompareTag(parentTag) || tiles[x].CompareTag(parent5Tag))
                     {
                         tiles.Add(tiles[x]);
                     }
                 } 
                 
             }
-            else if( parent != null && parent5 == null){
+            else if( parentTag != null && parent5Tag == null){
                 for(int x = 0; x < currenttilescount; x++)
                 {
-                    if (tiles[x].CompareTag(parent))
+                    if (tiles[x].CompareTag(parentTag))
                     {
                         tiles.Add(tiles[x]);
                     }
