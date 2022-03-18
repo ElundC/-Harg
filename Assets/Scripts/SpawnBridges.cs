@@ -26,6 +26,7 @@ public class SpawnBridges : MonoBehaviour
     IEnumerator  WaitForLevel (float waitTime)
     {
         yield return new WaitForSeconds (waitTime);
+        
         int randlevel = Random.Range(0, Bridges.Count);
 
         if(!wall){
