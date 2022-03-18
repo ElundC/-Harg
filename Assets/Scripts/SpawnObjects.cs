@@ -9,6 +9,8 @@ public class SpawnObjects : MonoBehaviour
     public GameObject parent1;
     public GameObject parent5;
     public RandomRule RuleNumber;
+    bool allParents = false;
+    bool firstParent = false;
     void Start()
     {
         GenerateLevel();
@@ -48,6 +50,8 @@ public class SpawnObjects : MonoBehaviour
     {
         string chosenrule ="No Rule";
 
+        CheckParent(parentTag, parent5Tag);
+
         if(num > 0 && num < 5)
         {
             NoSameNeigbhours(parentTag, parent5Tag);
@@ -69,9 +73,18 @@ public class SpawnObjects : MonoBehaviour
 
         Debug.Log (chosenrule);
     }
+    void CheckParent(string parentTag, string parent5Tag)
+    {
+        if( parentTag != null && parent5Tag != null){
+            allParents = true;
+        }
+        else if( parentTag != null && parent5Tag == null){
+            firstParent =true;
+        }
+    }
     void NoSameNeigbhours(string parentTag, string parent5Tag) {
 
-        if( parentTag != null && parent5Tag != null){
+        if(allParents){
             for(int x = 0; x < tiles.Count; x++)
             {
                 if (tiles[x].CompareTag(parentTag) || tiles[x].CompareTag(parent5Tag))
@@ -81,7 +94,7 @@ public class SpawnObjects : MonoBehaviour
                 }
             }
         }
-        else if( parentTag != null && parent5Tag == null){
+        else if(firstParent){
             for(int x = 0; x < tiles.Count; x++)
             {
                 if (tiles[x].CompareTag(parentTag))
@@ -93,14 +106,13 @@ public class SpawnObjects : MonoBehaviour
         }
         else {}
     }
-
     void SameNeigbhourschanceincrease(string parentTag, string parent5Tag)
     {
         int currenttilescount = tiles.Count;
 
-        for(int y = 0; y < 3; y++) {
+        for(int y = 0; y < 2; y++) {
 
-            if( parentTag != null && parent5Tag != null){
+            if(allParents){
                 for(int x = 0; x < currenttilescount; x++)
                 {
                     if (tiles[x].CompareTag(parentTag) || tiles[x].CompareTag(parent5Tag))
@@ -108,9 +120,8 @@ public class SpawnObjects : MonoBehaviour
                         tiles.Add(tiles[x]);
                     }
                 } 
-                
             }
-            else if( parentTag != null && parent5Tag == null){
+            else if(firstParent){
                 for(int x = 0; x < currenttilescount; x++)
                 {
                     if (tiles[x].CompareTag(parentTag))
@@ -118,13 +129,10 @@ public class SpawnObjects : MonoBehaviour
                         tiles.Add(tiles[x]);
                     }
                 }
-                
-                
             }
             else {}    
         }
     }
-
     void  AllBlock() {
 
         if(gameObject.layer == 7) {
@@ -138,7 +146,14 @@ public class SpawnObjects : MonoBehaviour
             }
         }
     }
+    int GenerateTile()
+    {
+        int rand = Random.Range(0, tiles.Count);
 
+        Instantiate(tiles[rand], transform.position, Quaternion.identity);
+
+        return rand;
+    }
     void InitiateNextSpawner(int rand)
     {
          string currenttiles = tiles[rand].tag;
@@ -155,20 +170,11 @@ public class SpawnObjects : MonoBehaviour
         yield return new WaitForSeconds (waitTime);
         child.SetActive(true);
     }
-
-    int GenerateTile()
-    {
-        int rand = Random.Range(0, tiles.Count);
-
-        Instantiate(tiles[rand], transform.position, Quaternion.identity);
-
-        return rand;
-    }
 }
 
 
-    
-        /*for(int x = 0; x < tiles.Count ; x++)             enleve tout les tiles avec le bon tag; 
+
+/*for(int x = 0; x < tiles.Count ; x++)             enleve tout les tiles avec le bon tag; 
         {
             if (tiles[x].CompareTag("Grey"))
             {
