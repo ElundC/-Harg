@@ -15,7 +15,6 @@ public class SpawnObjects : MonoBehaviour
     {
         GenerateLevel();
     }
-
     public void GenerateLevel()
     {
         GenerateRule();
